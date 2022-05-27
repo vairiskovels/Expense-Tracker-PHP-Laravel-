@@ -19,7 +19,7 @@ class ColorSeeder extends Seeder
         $colors = [
             ['color_code'    => '#ff6384'],
             ['color_code'    => '#36a2eb'],
-            ['color_code'    => '#ffa851'],
+            ['color_code'    => '#ffc53a'],
             ['color_code'    => '#4bc0c0'],
             ['color_code'    => '#ff9f40'],
             ['color_code'    => '#9966ff'],

@@ -74,7 +74,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 #entertainment-card {
-  background: #ffa851;
+  background: #ffc53a;
 }
 
 #wellbeing-card {
@@ -82,7 +82,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 #snacks-card {
-  background: #fbaa16;
+  background: #ff9f40;
 }
 
 #clothes-card {
@@ -442,7 +442,7 @@ select:focus {
 }
 
 .expenses-table-wrap table i.fa-film {
-  color: #ffa851;
+  color: #ffc53a;
 }
 
 .expenses-table-wrap table i.fa-staff-aesculapius {
@@ -450,7 +450,7 @@ select:focus {
 }
 
 .expenses-table-wrap table i.fa-burger {
-  color: #fbaa16;
+  color: #ff9f40;
 }
 
 .expenses-table-wrap table i.fa-shirt {
@@ -650,8 +650,7 @@ body {
 }
 
 #dashboard-text {
-  margin-top: 5rem;
-  margin-right: 14rem;
+  margin: 5rem 13rem 0 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

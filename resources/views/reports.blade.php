@@ -48,11 +48,25 @@
         const report3 = document.getElementById('top10').getContext('2d');
 
         var byMonthQuery = {!! json_encode($byMonth) !!};
+        var top10 = {!! json_encode($top10) !!};
+
         const months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December'];
+
         var byMonthData = [0,0,0,0,0,0,0,0,0,0,0,0];
         byMonthQuery.forEach(e => {
             byMonthData[e['month']-1] = parseFloat(e['price']);
         });
+
+        var top10Prices = [];
+        var top10Names = [];
+        var top10Colors = [];
+        top10.forEach(e => {
+            top10Names.push(e['name']);
+            top10Prices.push(e['price']);
+            top10Colors.push(e['color']);
+        });
+
+        console.log(top10Prices);
 
         const chart1 = new Chart(report1, {
             type: 'line',
@@ -129,44 +143,19 @@
         const chart3 = new Chart(report3, {
             type: 'bar',
             data: {
-                labels: ['House bills', 'Internet', 'Groceries', 'Pants', 'Monthly bus ticket', 'Screwdriver', 'Netflix', 'Snacks', 'Bulb', 'Ticket'],
+                labels: top10Names,
                 datasets: [{
                     label: 'Top 10',
-                    data: [80,45,30,25,15,7, 6.99,3,2.5,1],
+                    data: top10Prices,
                     fill: true,
-                    backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 205, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 205, 86, 1)',
-                    'rgba(255, 205, 86, 1)'
-                    ],
-                    tension: 0.1
+                    backgroundColor: top10Colors,
                 }]
             },
             options: {
-                // responsive: true,
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: 100,
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }
-                },
-                animations: {
-                    tension: {
-                        duration: 1000,
-                        easing: 'linear',
-                        from: 0,
-                        to: 10,
-                        loop: true
+                        suggestedMax: Math.max.apply(Math, top10Prices) * 1.15,
                     }
                 },
                 plugins: {

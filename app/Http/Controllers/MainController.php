@@ -123,7 +123,22 @@ class MainController extends Controller
                                 FROM expenses
                                 WHERE user_id = ?
                                 GROUP BY MONTH(date)", [auth()->user()->id]);
-        return view('reports', compact('byMonth'));
+
+        $byCategory = DB::select("SELECT types.name as name, SUM(price) as price, MONTH(date) as month, colors.color_code as color
+                                FROM expenses
+                                JOIN types on expenses.type_id = types.id
+                                JOIN colors on types.color_id = colors.id
+                                WHERE YEAR(expenses.date) = 2022 AND expenses.user_id = 4
+                                GROUP BY MONTH(expenses.date), name, color
+                                ORDER BY MONTH(expenses.date) ASC");
+        $top10 = DB::select("SELECT expenses.name as name, expenses.price as price, colors.color_code as color
+                            FROM expenses
+                            JOIN types on expenses.type_id = types.id
+                            JOIN colors on types.color_id = colors.id
+                            WHERE MONTH(expenses.date) = ? AND expenses.user_id = ?
+                            ORDER BY expenses.price DESC
+                            LIMIT 10", [Carbon::now()->month, auth()->user()->id]);
+        return view('reports', compact('byMonth', 'top10'));
     }
 
     public function history() {

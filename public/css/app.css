@@ -111,6 +111,14 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
   color: green;
 }
 
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block;
+}
+
 .input-card {
   background: #fff;
   padding: 4rem 3.5rem;
@@ -393,9 +401,9 @@ select:focus {
 }
 
 .expenses-table-wrap table {
-  width: 100%;
   padding: .75rem;
   border-spacing: 0;
+  table-layout: fixed;
 }
 
 .expenses-table-wrap table th {
@@ -409,6 +417,14 @@ select:focus {
 
 .expenses-table-wrap table th:first-child {
   border-radius: 10px 0 0 10px;
+}
+
+.expenses-table-wrap table th:nth-child(1) {
+  padding-right: 2rem;
+}
+
+.expenses-table-wrap table th:nth-child(2) {
+  text-align: left;
 }
 
 .expenses-table-wrap table th:last-child {
@@ -425,12 +441,16 @@ select:focus {
   height: 50px;
   border-bottom: 1px solid #eee;
   color: #444;
-  width: 25%;
+}
+
+.expenses-table-wrap table tbody td.expense-name {
+  width: 250px;
+  padding-right: 2rem;
 }
 
 .expenses-table-wrap table tbody td.expense-cat {
+  width: 150px;
   text-align: left;
-  padding-left: 3rem;
 }
 
 .expenses-table-wrap table i.fa-file-invoice-dollar {
@@ -536,6 +556,23 @@ select:focus {
 
 .profile-wrap .change-pass-btn:hover {
   border-bottom: 2px dashed #ff715b;
+}
+
+.report-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
+          box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
+}
+
+.report-card #by-category-bar {
+  width: 850px !important;
+  height: 420px !important;
+}
+
+.report-card #top10-bar {
+  width: 850px !important;
 }
 
 * {
@@ -801,46 +838,29 @@ body {
   height: 500px;
 }
 
-#history-section .expenses-table-wrap thead {
-  text-align: center;
+#history-section .expenses-table-wrap table {
+  table-layout: fixed;
 }
 
-#history-section .expenses-table-wrap tbody td {
-  text-align: center;
-  padding: 0;
-  width: 24%;
+#history-section .expenses-table-wrap tbody .edit-btn, #history-section .expenses-table-wrap tbody .delete-btn {
+  width: 15px;
 }
 
-#history-section .expenses-table-wrap tbody td.delete-btn {
-  width: 50px;
+#history-section .expenses-table-wrap tbody i {
+  -webkit-transition: all .1s ease-out;
+  transition: all .1s ease-out;
 }
 
-#history-section .expenses-table-wrap tbody td.delete-btn i {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
-}
-
-#history-section .expenses-table-wrap tbody td.delete-btn i:hover {
-  color: red;
-}
-
-#history-section .expenses-table-wrap tbody td.edit-btn {
-  width: 50px;
-}
-
-#history-section .expenses-table-wrap tbody td.edit-btn i {
-  margin-right: .5rem;
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
-}
-
-#history-section .expenses-table-wrap tbody td.edit-btn i:hover {
+#history-section .expenses-table-wrap tbody i.fa-pen-to-square:hover {
   color: #5d61f7;
 }
 
-#history-section .expenses-table-wrap tbody td.expense-cat {
-  text-align: left;
-  padding-left: 5rem;
+#history-section .expenses-table-wrap tbody i.fa-trash-can:hover {
+  color: red;
+}
+
+#history-section .expenses-table-wrap tbody .expense-cat, #history-section .expenses-table-wrap tbody .expense-price, #history-section .expenses-table-wrap tbody .expense-date {
+  width: 135px;
 }
 
 #history-section .section-header {
@@ -874,8 +894,8 @@ body {
           justify-content: center;
 }
 
-#history-section .section-header #search-form input[type="text"] {
-  margin-bottom: .3rem;
+#history-section .section-header #search-form select {
+  margin-bottom: 0;
 }
 
 #history-section .section-header #search-form input[type="submit"] {
@@ -957,5 +977,58 @@ body {
 #category-page .section-header {
   font-size: 28px;
   margin-bottom: 1rem;
+}
+
+#reports-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#reports-section .reports-wrap {
+  -webkit-transform: translateX(-100px);
+          transform: translateX(-100px);
+}
+
+#reports-section .section-header-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: .7rem;
+}
+
+#reports-section .section-header-wrap select {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 7px;
+  -webkit-box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
+          box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
+}
+
+#reports-section .section-header-wrap select:focus {
+  -webkit-box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.5);
+          box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.5);
+}
+
+#reports-section .section-header-wrap .section-header {
+  font-size: 28px;
+  color: #444;
 }
 /*# sourceMappingURL=style.css.map */

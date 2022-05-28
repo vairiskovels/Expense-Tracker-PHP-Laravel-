@@ -8,7 +8,7 @@
     <main id="reports-section" class="main">
         <div class="reports-wrap">
             <div class="section-header-wrap">
-                <h2 class="section-header" id="section-header">Expenses by month</h2>
+                <h2 class="section-header" id="section-header">Expenses by months (total)</h2>
                 <select name="reports-select" id="reports-select">
                     <option value="1" selected>Expenses by month</option>
                     <option value="2">Expenses by category</option>
@@ -47,25 +47,31 @@
         const report2 = document.getElementById('byMonthCategory').getContext('2d');
         const report3 = document.getElementById('top10').getContext('2d');
 
+        var byMonthQuery = {!! json_encode($byMonth) !!};
+        const months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December'];
+        var byMonthData = [0,0,0,0,0,0,0,0,0,0,0,0];
+        byMonthQuery.forEach(e => {
+            byMonthData[e['month']-1] = parseFloat(e['price']);
+        });
+
         const chart1 = new Chart(report1, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December'],
+                labels: months,
                 datasets: [{
-                    label: 'Bills',
-                    data: [80,70,65,75,80,70,65,75,80,70,65,75],
+                    label: 'Expenses',
+                    data: byMonthData,
                     fill: true,
-                    backgroundColor: 'rgb(54, 162, 235, .5)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    tension: 0.1
+                    borderColor: '#ff6384',
+                    backgroundColor: '#ff638480',
+                    tension: 0.2
                 }]
             },
             options: {
-                // responsive: true,
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: 100
+                        suggestedMax: Math.max.apply(Math, byMonthData) * 1.15
                     }
                 },
                 plugins: {

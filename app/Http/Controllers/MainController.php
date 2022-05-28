@@ -119,7 +119,11 @@ class MainController extends Controller
     }
 
     public function reports() {
-        return view('reports');
+        $byMonth = DB::select("SELECT MONTH(date) as month, SUM(price) as price 
+                                FROM expenses
+                                WHERE user_id = ?
+                                GROUP BY MONTH(date)", [auth()->user()->id]);
+        return view('reports', compact('byMonth'));
     }
 
     public function history() {

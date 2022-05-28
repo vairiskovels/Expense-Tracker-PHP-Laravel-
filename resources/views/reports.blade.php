@@ -48,15 +48,18 @@
         const report3 = document.getElementById('top10').getContext('2d');
 
         var byMonthQuery = {!! json_encode($byMonth) !!};
+        var byCategoryQuery = {!! json_encode($byCategory) !!};
         var top10 = {!! json_encode($top10) !!};
 
         const months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December'];
 
+        // Data for byMonth chart
         var byMonthData = [0,0,0,0,0,0,0,0,0,0,0,0];
         byMonthQuery.forEach(e => {
             byMonthData[e['month']-1] = parseFloat(e['price']);
         });
-
+        
+        // Data for top10 chart
         var top10Prices = [];
         var top10Names = [];
         var top10Colors = [];
@@ -66,8 +69,46 @@
             top10Colors.push(e['color']);
         });
 
-        console.log(top10Prices);
+        // Data for byCategory chart
+        let categoryNames = [];
+        let categoryColors = [];
+        let categoryData = [];
+        let fullData = [];
+        let byCategoryDict = {};
+        let maxValue = 0;
+        byCategoryQuery.forEach(e => {
+            if (!categoryNames.includes(e['name'])) {
+                categoryNames.push(e['name']);
+                categoryColors.push(e['color']);
+                byCategoryDict[e['name']] = {};
+            }
+            let name = e['name']
+            byCategoryDict[name][e['month']] = e['price'];
+        });
 
+        for (const [key, value] of Object.entries(byCategoryDict)) {
+            let new_arr = [];
+            for (const [nkey, nvalue] of Object.entries(value)) {
+                new_arr.push(value[nkey]);
+            }
+            let m = Math.max.apply(Math, new_arr);
+            if (m > maxValue) {
+                maxValue = m;
+            }
+            categoryData.push(new_arr);
+        }
+
+        for ($i = 0; $i < categoryNames.length; $i++) {
+            let new_dict = {};
+            new_dict['label'] = categoryNames[$i];
+            new_dict['data'] = categoryData[$i];
+            new_dict['borderColor'] = categoryColors[$i];
+            new_dict['backgroundColor'] = categoryColors[$i];
+            new_dict['tension'] = 0.2;
+            fullData.push(new_dict);
+        }
+
+        // By month chart
         const chart1 = new Chart(report1, {
             type: 'line',
             data: {
@@ -85,7 +126,7 @@
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: Math.max.apply(Math, byMonthData) * 1.15
+                        suggestedMax: Math.max.apply(Math, categoryData) * 1.15
                     }
                 },
                 plugins: {
@@ -95,51 +136,32 @@
                 }
             }
         });
+
+        // By category chart
         const chart2 = new Chart(report2, {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December'],
-                datasets: [
-                    {
-                    label: 'Dataset 1',
-                    data: [80,70,65,75,80,70,65,75,80,70,65,75],
-                    backgroundColor: '#44444480',
-                    borderColor: '#444444'
-                    },
-                    {
-                    label: 'Dataset 2',
-                    data: [80,70,65,75,80,70,65,75,80,70,65,75],
-                    backgroundColor: '#333333',
-                    },
-                    {
-                    label: 'Dataset 3',
-                    data: [80,70,65,75,80,70,65,75,80,70,65,75],
-                    backgroundColor: '#222222',
-                    }
-                ],
+                labels: months,
+                datasets: fullData,
+                fill: true,
                 borderWidth: 1
             },
             options: {
                 plugins: {
                     legend: {
                         position: 'top',
-                        layout: {
-                            padding: 100
-                        }
                     }
                 },
                 scales: {
-                    x: {
-                        stacked: true,
-                    },
                     y: {
-                        stacked: true,
                         suggestedMin: 0,
-                        suggestedMax: 300
+                        suggestedMax: maxValue * 1.1
                     }
                 }
             }
         });
+
+        // Top10 chart
         const chart3 = new Chart(report3, {
             type: 'bar',
             data: {

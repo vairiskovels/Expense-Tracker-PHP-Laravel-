@@ -91,7 +91,6 @@
             queryColors.push('#ffffff');
             queryData.push('1');
         }
-        console.log(categories[0]['price']);
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'pie',

@@ -1,3 +1,4 @@
+// Reports
 const select = document.getElementById("reports-select");
 let option = select.addEventListener('change', changeReportCard);
 const reportCards = document.getElementsByClassName("report-wrap");
@@ -15,3 +16,4 @@ function changeReportCard(e) {
         }
     }
 }
+

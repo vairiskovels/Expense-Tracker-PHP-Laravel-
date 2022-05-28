@@ -11,12 +11,25 @@
             <h2>Expenses</h2>
             <form action="#" id="search-form">
                 <div class="input-field">
-                    <select name="" id="">
-                        <option selected disabled>Category</option>
+                    <select name="search" id="search-select">
+                        <option selected disabled>Search by</option>
+                        <option value="1">Name</option>
+                        <option value="2">Category</option>
+                        <option value="3">Date</option>
+                        <option value="4">Price</option>
                     </select>
                 </div>
                 <div class="input-field">
-                    <input type="text" name="" id="" placeholder="Name">
+                    <input type="text" name="" id="" placeholder="Name" class="show search-input">
+                    <select name="searchValue" id="" class="hide search-input">
+                        <option selected disabled>Select</option>
+                        <option value="1">Name</option>
+                        <option value="2">Category</option>
+                        <option value="3">Date</option>
+                        <option value="4">Amount</option>
+                    </select>
+                    <input type="date" name="searchValue" id="" class="hide search-input" placeholder="Date">
+                    <input type="text" name="searchValue" id="" class="hide search-input" placeholder="Price">
                 </div>
                 <input type="submit" value="Search" class="btn btn-primary">
             </form>
@@ -110,5 +123,21 @@
             </table>
         </div>
     </main>
+    <script>
+        const searchSelect = document.getElementById("search-select");
+        let option2 = searchSelect.addEventListener('change', changeSearchField);
+        const searchInputs = document.getElementsByClassName("search-input");
+
+        function changeSearchField(e) {
+            const v = e.target.value;
+
+            searchInputs[v-1].classList.replace("hide" , "show");
+            for ($i = 0; $i < searchInputs.length; $i++) {
+                if ($i != (v-1)) {
+                    searchInputs[$i].classList.replace("show" , "hide");
+                }
+            }
+        }
+    </script>
 </body>
 @endsection

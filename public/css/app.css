@@ -642,6 +642,16 @@ body {
   background: #999;
 }
 
+::-moz-selection {
+  color: #101d7d;
+  background: #cbd1f1;
+}
+
+::selection {
+  color: #101d7d;
+  background: #cbd1f1;
+}
+
 .main-body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -900,6 +910,11 @@ body {
 
 #history-section .section-header #search-form input[type="submit"] {
   padding: 0px;
+}
+
+#history-section .section-header #search-form input[type="date"], #history-section .section-header #search-form input[type="date"], #history-section .section-header #search-form select {
+  padding-left: 18px;
+  padding-right: 10px;
 }
 
 #history-section .section-header #search-form input, #history-section .section-header #search-form select {

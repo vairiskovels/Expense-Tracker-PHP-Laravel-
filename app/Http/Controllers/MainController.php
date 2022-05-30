@@ -93,7 +93,7 @@ class MainController extends Controller
         $this->validate($request, [
             'type'      => 'required|numeric',
             'name'      => 'required|max:125',
-            'price'      => 'required|numeric',
+            'price'      => 'required|numeric|min:0.01',
             'date'      => 'required|date|max:'.(date('Y'))
         ]);
 
@@ -142,7 +142,20 @@ class MainController extends Controller
     }
 
     public function history() {
-        return view('history');
+        $expenses = Expense::select([
+            'expenses.id',
+            'expenses.name',
+            'expenses.price',
+            'expenses.date',
+            'types.name as type_name',
+            'types.icon_name as icon_name'
+        ])
+        ->join('types', 'types.id', '=', 'expenses.type_id')
+        ->where('user_id', auth()->user()->id)
+        ->orderByRaw('expenses.date DESC, expenses.name ASC')
+        ->get();
+
+        return view('history', compact('expenses'));
     }
 
     /**
@@ -151,9 +164,28 @@ class MainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function editRecord($id)
+    { 
+
+        $checkId = Expense::select(['*'])
+                    ->where('expenses.id', $id)
+                    ->get();
+
+        $types = Type::all();
+        $record = Expense::select([
+            'expenses.id',
+            'expenses.name',
+            'expenses.price',
+            'expenses.date',
+            'types.name as type_name',
+            'types.id as type_id'
+        ])
+        ->join('types', 'types.id', '=', 'expenses.type_id')
+        ->where('expenses.id', $id)
+        ->where('user_id', auth()->user()->id)
+        ->get();
+
+        return view('edit-record', compact('types', 'record'));
     }
 
     /**
@@ -162,9 +194,23 @@ class MainController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function updateRecord(Request $request)
     {
-        //
+        $this->validate($request, [
+            'type'      => 'required|numeric',
+            'name'      => 'required|max:125',
+            'price'      => 'required|numeric|min:0.01',
+            'date'      => 'required|date|max:'.(date('Y'))
+        ]);
+
+        $expense = Expense::find($request->get('id'));
+        $expense->type_id = $request->get('type');
+        $expense->user_id = auth()->user()->id;
+        $expense->name = ucfirst($request->name);
+        $expense->price = $request->price;
+        $expense->date = Carbon::parse($request->date);
+        $expense->save();
+        return redirect('/history');
     }
 
     /**

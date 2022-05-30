@@ -47,78 +47,16 @@
                     </tr>
                 </thead>                                                                                                                
                 <tbody>
+                    @foreach ($expenses as $expense)
                     <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-bus"></i> Transport</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td class="expense-name">{{$expense->name}}</td>
+                        <td class="expense-cat"><i class="fa-solid {{$expense->icon_name}}"></i> {{$expense->type_name}}</td>
+                        <td class="expense-date">{{date('d/m/Y', strtotime($expense->date));}}</td>
+                        <td class="expense-price">{{$expense->price}}€</td>
+                        <td class="edit-btn"><a href="/edit-record/{{$expense->id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
                     </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"> <i class="fa-solid fa-file-invoice-dollar"></i> Bills</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-basket-shopping"></i> Groceries</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-shirt"></i> Clothes</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-burger"></i> Snacks</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-staff-aesculapius"></i> Wellbeing</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-film"></i> Entertainment</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-shirt"></i> Clothes</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
-                    <tr>
-                        <td class="expense-name">Test</td>
-                        <td class="expense-cat"><i class="fa-solid fa-basket-shopping"></i> Groceries</td>
-                        <td class="expense-date">01/02/22</td>
-                        <td class="expense-price">123€</td>
-                        <td class="edit-btn"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

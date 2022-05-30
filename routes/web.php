@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 
@@ -34,6 +35,8 @@ Route::get('/add', [MainController::class, 'create']);
 Route::post('/add', [MainController::class, 'store']);
 Route::get('/reports', [MainController::class, 'reports']);
 Route::get('/history', [MainController::class, 'history']);
+Route::get('/edit-record/{id}', [MainController::class, 'editRecord']);
+Route::post('/edit-record', [MainController::class, 'updateRecord']);
 Route::get('/profile', [UserController::class, 'show']);
 Route::get('/profile/change-password', [UserController::class, 'editPassword']);
 Route::get('category/{id}', [MainController::class, 'category']);

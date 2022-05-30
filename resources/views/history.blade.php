@@ -54,7 +54,12 @@
                         <td class="expense-date">{{date('d/m/Y', strtotime($expense->date));}}</td>
                         <td class="expense-price">{{$expense->price}}€</td>
                         <td class="edit-btn"><a href="/edit-record/{{$expense->id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="delete-btn"><a href=""><i class="fa-solid fa-trash-can"></i></a></td>
+                        <td class="delete-btn">
+                            <form method="POST" action='/delete-record/{{$expense->id}}'>
+                                @csrf
+                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

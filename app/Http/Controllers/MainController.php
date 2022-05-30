@@ -233,6 +233,7 @@ class MainController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Expense::where('id', $id)->where('user_id', auth()->user()->id)->delete();
+        return redirect('/history');
     }
 }

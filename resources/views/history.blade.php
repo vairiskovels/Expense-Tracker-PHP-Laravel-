@@ -9,10 +9,11 @@
     <main id="history-section" class="main">
         <div class="section-header">
             <h2>Expenses</h2>
-            <form action="#" id="search-form">
+            <form action="{{ url('/history') }}" method="POST" id="search-form">
+                @csrf
                 <div class="input-field">
                     <select name="search" id="search-select">
-                        <option selected disabled>Search by</option>
+                        <option selected disabled value="0">Search by</option>
                         <option value="1">Name</option>
                         <option value="2">Category</option>
                         <option value="3">Date</option>
@@ -20,16 +21,16 @@
                     </select>
                 </div>
                 <div class="input-field">
-                    <input type="text" name="" id="" placeholder="Name" class="show search-input">
-                    <select name="searchValue" id="" class="hide search-input">
+                    <input type="text" class="show search-input" disabled>
+                    <input type="text" name="searchName" id="name-search" placeholder="Name" class="hide search-input">
+                    <select name="searchCategory" id="select-search" class="hide search-input">
                         <option selected disabled>Select</option>
-                        <option value="1">Name</option>
-                        <option value="2">Category</option>
-                        <option value="3">Date</option>
-                        <option value="4">Amount</option>
+                        @foreach ($types as $type)
+                            <option value="{{$type->id}}">{{$type->name}}</option>
+                        @endforeach
                     </select>
-                    <input type="date" name="searchValue" id="" class="hide search-input" placeholder="Date">
-                    <input type="text" name="searchValue" id="" class="hide search-input" placeholder="Price">
+                    <input type="date" name="searchDate" id="date-search" class="hide search-input" placeholder="Date">
+                    <input type="text" name="searchPrice" id="price-search" class="hide search-input" placeholder="Price (€)">
                 </div>
                 <input type="submit" value="Search" class="btn btn-primary">
             </form>
@@ -47,7 +48,7 @@
                     </tr>
                 </thead>                                                                                                                
                 <tbody>
-                    @foreach ($expenses as $expense)
+                    @foreach ($query as $expense)
                     <tr>
                         <td class="expense-name">{{$expense->name}}</td>
                         <td class="expense-cat"><i class="fa-solid {{$expense->icon_name}}"></i> {{$expense->type_name}}</td>
@@ -74,9 +75,9 @@
         function changeSearchField(e) {
             const v = e.target.value;
 
-            searchInputs[v-1].classList.replace("hide" , "show");
+            searchInputs[v].classList.replace("hide" , "show");
             for ($i = 0; $i < searchInputs.length; $i++) {
-                if ($i != (v-1)) {
+                if ($i != (v)) {
                     searchInputs[$i].classList.replace("show" , "hide");
                 }
             }

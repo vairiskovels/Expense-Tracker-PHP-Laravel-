@@ -141,7 +141,8 @@ class MainController extends Controller
         return view('reports', compact('byMonth', 'byCategory', 'top10'));
     }
 
-    public function history() {
+    public function history(Request $request) {
+        $types = Type::all();
         $expenses = Expense::select([
             'expenses.id',
             'expenses.name',
@@ -152,11 +153,33 @@ class MainController extends Controller
         ])
         ->join('types', 'types.id', '=', 'expenses.type_id')
         ->where('user_id', auth()->user()->id)
-        ->orderByRaw('expenses.date DESC, expenses.name ASC')
-        ->get();
-
-        return view('history', compact('expenses'));
+        ->orderByRaw('expenses.date DESC, expenses.name ASC');
+        
+        if ($request->search == 1){
+            if ($request->searchName != null) {
+                $expenses->where('expenses.name', 'like', '%'.$request->searchName.'%')->get();
+            }
+        }
+        else if ($request->search == 2){
+            if ($request->searchCategory != null) {
+                $expenses->where('expenses.type_id', $request->searchCategory);
+            }
+        }
+        else if ($request->search == 3){
+            if ($request->searchDate != null) {
+                $expenses->where('expenses.date', Carbon::parse($request->searchDate));
+            }
+        }
+        else if ($request->search == 4){
+            if ($request->searchPrice != null) {
+                $expenses->where('expenses.price', '>=',$request->searchPrice);
+            }
+        }
+        
+        $query = $expenses->get();
+        return view('history', compact('query', 'types'));
     }
+
 
     /**
      * Display the specified resource.

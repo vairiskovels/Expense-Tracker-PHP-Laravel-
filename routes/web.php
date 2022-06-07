@@ -42,3 +42,4 @@ Route::get('/profile', [UserController::class, 'show']);
 Route::get('/profile/change-password', [UserController::class, 'editPassword']);
 Route::get('category/{id}', [MainController::class, 'category']);
 Route::post('/delete-record/{id}', [MainController::class, 'destroy']);
+Route::get('/delete', [UserController::class, 'delete']);

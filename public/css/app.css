@@ -26,6 +26,17 @@
           box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
 }
 
+.btn-danger {
+  background: #ff715b;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #ff5e45;
+  -webkit-box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
+          box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
+}
+
 .btn-transparent {
   background: none;
   border: 1px solid rgba(16, 29, 125, 0.5);
@@ -619,6 +630,7 @@ body {
   background: #f6f7fb;
   font-family: "Satoshi", sans-serif;
   color: #1e2028;
+  height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -893,6 +905,7 @@ body {
 #history-section .section-header #search-form {
   display: -ms-grid;
   display: grid;
+  -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   -webkit-box-align: center;
@@ -1044,5 +1057,52 @@ body {
 #reports-section .section-header-wrap .section-header {
   font-size: 28px;
   color: #444;
+}
+
+#delete-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#delete-section .input-card {
+  padding: 2rem;
+  -webkit-transform: translateX(-100px);
+          transform: translateX(-100px);
+}
+
+#delete-section .input-card h2 {
+  font-size: 28px;
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 1366px) {
+  .navbar {
+    width: 275px;
+  }
+  .navbar .nav-wrap {
+    padding: 2rem;
+  }
+  .navbar .nav-wrap .nav-collection {
+    width: 100%;
+    margin-bottom: 7rem;
+    margin-top: 2rem;
+  }
+  .navbar .nav-wrap .nav-items {
+    margin-bottom: 1.5rem;
+  }
+  #dashboard-page {
+    padding: 0;
+  }
+  #dashboard-text {
+    margin-top: 3rem;
+    margin-right: 5rem;
+  }
 }
 /*# sourceMappingURL=style.css.map */

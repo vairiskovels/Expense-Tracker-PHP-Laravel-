@@ -41,7 +41,7 @@
                 </form>
                 <a href="/profile/change-password" class="btn change-pass-btn" >Change password</a>
             </div>
-            <a href="" class="btn delete-btn">Delete account</a>
+            <a href="/delete" class="btn delete-btn">Delete account</a>
         </section>
     </main>
 </body>

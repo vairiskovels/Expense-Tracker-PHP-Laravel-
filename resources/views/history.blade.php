@@ -13,10 +13,13 @@
                 <div class="input-field">
                     <select name="search" id="search-select">
                         <option selected disabled value="0">Search by</option>
-                        <option value="1">Name</option>
-                        <option value="2">Category</option>
-                        <option value="3">Date</option>
-                        <option value="4">Price</option>
+                        @foreach ($searchBy as $key => $value)
+                        @if ($search == $key)
+                        <option value="{{$key}}" selected>{{$value}}</option>
+                        @else
+                        <option value="{{$key}}">{{$value}}</option>
+                        @endif
+                        @endforeach
                     </select>
                 </div>
                 <div class="input-field">
@@ -78,8 +81,8 @@
         let option2 = searchSelect.addEventListener('change', changeSearchField);
         const searchInputs = document.getElementsByClassName("search-input");
 
-        function changeSearchField(e) {
-            const v = e.target.value;
+        function changeSearchField() {
+            const v = searchSelect.value;
 
             searchInputs[v].classList.replace("hide" , "show");
             for ($i = 0; $i < searchInputs.length; $i++) {
@@ -88,6 +91,9 @@
                 }
             }
         }
+
+        window.onload = changeSearchField;
+
     </script>
 </body>
 @endsection

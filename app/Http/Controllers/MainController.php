@@ -92,7 +92,7 @@ class MainController extends Controller
     {   
         $this->validate($request, [
             'type'      => 'required|numeric',
-            'name'      => 'required|max:125',
+            'name'      => 'required|max:50',
             'price'      => 'required|numeric|min:0.01',
             'date'      => 'required|date|max:'.(date('Y'))
         ]);
@@ -142,6 +142,7 @@ class MainController extends Controller
     }
 
     public function history(Request $request) {
+        $search = $request->search;
         $sort = $request->sort;
         if ($sort == 'category') {
             $sort = 'type_id';
@@ -159,22 +160,22 @@ class MainController extends Controller
         ->join('types', 'types.id', '=', 'expenses.type_id')
         ->where('user_id', auth()->user()->id);
         
-        if ($request->search == 1){
+        if ($search == 1){
             if ($request->searchName != null) {
                 $expenses->where('expenses.name', 'like', '%'.$request->searchName.'%')->get();
             }
         }
-        else if ($request->search == 2){
+        else if ($search == 2){
             if ($request->searchCategory != null) {
                 $expenses->where('expenses.type_id', $request->searchCategory);
             }
         }
-        else if ($request->search == 3){
+        else if ($search == 3){
             if ($request->searchDate != null) {
                 $expenses->where('expenses.date', Carbon::parse($request->searchDate));
             }
         }
-        else if ($request->search == 4){
+        else if ($search == 4){
             if ($request->searchPrice != null) {
                 $expenses->where('expenses.price', '>=',$request->searchPrice)->orderByRaw('expenses.date DESC, expenses.price DESC');
             }
@@ -186,8 +187,9 @@ class MainController extends Controller
         else {
             $query = $expenses->orderByRaw('expenses.date DESC, expenses.name ASC')->get();
         }
+        $searchBy = ['1'=>'Name', '2'=>'Category', '3'=>'Date', '4'=>'Price'];
 
-        return view('history', compact('query', 'types', 'order'));
+        return view('history', compact('query', 'types', 'order', 'search', 'searchBy'));
     }
 
 
@@ -231,7 +233,7 @@ class MainController extends Controller
     {
         $this->validate($request, [
             'type'      => 'required|numeric',
-            'name'      => 'required|max:125',
+            'name'      => 'required|max:50',
             'price'      => 'required|numeric|min:0.01',
             'date'      => 'required|date|max:'.(date('Y'))
         ]);

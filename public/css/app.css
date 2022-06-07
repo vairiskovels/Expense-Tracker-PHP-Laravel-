@@ -864,6 +864,10 @@ body {
   table-layout: fixed;
 }
 
+#history-section .expenses-table-wrap table a:hover {
+  text-decoration: underline;
+}
+
 #history-section .expenses-table-wrap tbody .edit-btn, #history-section .expenses-table-wrap tbody .delete-btn {
   width: 15px;
 }

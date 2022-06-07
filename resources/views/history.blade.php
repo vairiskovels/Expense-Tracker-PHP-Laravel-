@@ -5,7 +5,6 @@
 
 <body id="history" class="main-body">
     @extends('layouts.navbar')
-
     <main id="history-section" class="main">
         <div class="section-header">
             <h2>Expenses</h2>
@@ -39,10 +38,17 @@
         <table class="expenses">
                 <thead>
                     <tr class="table-head">
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Amount</th>
+                        @if ($order == null || $order == 'desc')
+                            <th><a href="/history?sort=name&order=asc">Name</a></th>
+                            <th><a href="/history?sort=category&order=asc">Category</a></th>
+                            <th><a href="/history?sort=date&order=asc">Date</a></th>
+                            <th><a href="/history?sort=price&order=asc">Price</a></th>
+                        @else
+                            <th><a href="/history?sort=name&order=desc">Name</a></th>
+                            <th><a href="/history?sort=category&order=desc">Category</a></th>
+                            <th><a href="/history?sort=date&order=desc">Date</a></th>
+                            <th><a href="/history?sort=price&order=desc">Price</a></th>
+                        @endif
                         <th></th>
                         <th></th>
                     </tr>

@@ -142,6 +142,11 @@ class MainController extends Controller
     }
 
     public function history(Request $request) {
+        $sort = $request->sort;
+        if ($sort == 'category') {
+            $sort = 'type_id';
+        }
+        $order = $request->order;
         $types = Type::all();
         $expenses = Expense::select([
             'expenses.id',
@@ -152,8 +157,7 @@ class MainController extends Controller
             'types.icon_name as icon_name'
         ])
         ->join('types', 'types.id', '=', 'expenses.type_id')
-        ->where('user_id', auth()->user()->id)
-        ->orderByRaw('expenses.date DESC, expenses.name ASC');
+        ->where('user_id', auth()->user()->id);
         
         if ($request->search == 1){
             if ($request->searchName != null) {
@@ -172,12 +176,18 @@ class MainController extends Controller
         }
         else if ($request->search == 4){
             if ($request->searchPrice != null) {
-                $expenses->where('expenses.price', '>=',$request->searchPrice);
+                $expenses->where('expenses.price', '>=',$request->searchPrice)->orderByRaw('expenses.date DESC, expenses.price DESC');
             }
         }
-        
-        $query = $expenses->get();
-        return view('history', compact('query', 'types'));
+
+        if ($sort != null) {
+            $query = $expenses->orderByRaw('expenses.'.$sort.' '.$order)->get();
+        }
+        else {
+            $query = $expenses->orderByRaw('expenses.date DESC, expenses.name ASC')->get();
+        }
+
+        return view('history', compact('query', 'types', 'order'));
     }
 
 

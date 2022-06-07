@@ -54,7 +54,7 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Date</th>
-                            <th>Amount</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>

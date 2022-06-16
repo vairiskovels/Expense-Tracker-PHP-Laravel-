@@ -71,8 +71,16 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {
-        return view('profile');
+    {   
+        $profile = User::select([
+            'users.name',
+            'users.surname',
+            'users.username',
+            'users.email'
+        ])
+        ->where('id', auth()->user()->id)
+        ->get();
+        return view('profile', compact('profile'));
     }
 
     /**
@@ -82,9 +90,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $userId = auth()->user()->id;
+        
+        $this->validate($request, [
+            'name'      => 'required|min:3|max:25',
+            'surname'   => 'required|min:3|max:25',
+            'username'  => 'required|min:3|max:30|unique:users,username,' . $userId,
+            'email'     => 'required|min:6|max:50|unique:users,email,' . $userId
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->name = $request->get('name');
+        $user->surname = $request->get('surname');
+        $user->username = $request->get('username');
+        $user->email = $request->get('email');
+        $user->save();
+        return redirect('/profile')->with('message', "Your profile information has been successfully saved");
     }
 
     /**
@@ -102,6 +125,24 @@ class UserController extends Controller
     public function editPassword() {
         return view('change_pass');
     }
+    public function updatePassword(Request $request) {
+
+        $user = User::where('id', auth()->user()->id)->first();
+        Hash::check(request('old_password'), $user->password);
+
+        $this->validate($request, [
+            'new_password'      => 'required|min:8|max:191|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9]).*$/',
+            'repeat_password'      => 'required|same:new_password'
+        ],
+        [
+            'new_password.regex'    => 'Password should contain lowercase, upercase letters and digits.'
+        ]);
+
+        $user = User::find(auth()->user()->id);
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        return redirect('/profile/change-password')->with('message', "Your password has successfully been changed.");
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -114,8 +155,11 @@ class UserController extends Controller
     {
         return view('delete-account');
     }
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        
+        $user = User::where('id', auth()->user()->id)->first();
+        Hash::check(request('old_password'), $user->password);
+        User::where('id', auth()->user()->id)->delete();
+        return redirect('/');
     }
 }

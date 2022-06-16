@@ -10,11 +10,12 @@
             <div class="container">
                 <div class="input-card">
                     <h2>Enter your password to delete account.</h2>
-                    <form action="" id="reset-form">
+                    <form action="{{ url('/delete') }}" method="post" id="reset-form">
+                        @csrf
                         <div class="input-field">
                             <div class="input-wrap">
                                 <i class="fa-solid fa-lock"></i>
-                                <input type="password" name="" id="" placeholder="Password">
+                                <input type="password" name="password" id="" placeholder="Password">
                             </div>
                         </div>
                         <div class="input-field">

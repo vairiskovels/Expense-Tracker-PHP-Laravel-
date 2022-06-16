@@ -228,10 +228,11 @@ select:focus {
 .navbar .nav-wrap h1 {
   color: #101d7d;
   margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 
 .navbar .nav-wrap .nav-collection {
-  margin-bottom: 9rem;
+  margin-bottom: 7rem;
   width: 80%;
 }
 
@@ -251,6 +252,10 @@ select:focus {
   border-radius: 10px;
   -webkit-transition: all .1s;
   transition: all .1s;
+}
+
+.navbar .nav-wrap .nav-items.panel {
+  margin-top: 4rem;
 }
 
 .navbar .nav-wrap .nav-items:hover, .navbar .nav-wrap .nav-items.current-page {
@@ -395,7 +400,7 @@ select:focus {
   transition: all .3s;
 }
 
-.expenses-table-wrap {
+.expenses-table-wrap, .users-table-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -411,13 +416,13 @@ select:focus {
           box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.25);
 }
 
-.expenses-table-wrap table {
+.expenses-table-wrap table, .users-table-wrap table {
   padding: .75rem;
   border-spacing: 0;
   table-layout: fixed;
 }
 
-.expenses-table-wrap table th {
+.expenses-table-wrap table th, .users-table-wrap table th {
   position: -webkit-sticky;
   position: sticky;
   top: .75rem;
@@ -426,27 +431,27 @@ select:focus {
   color: #444;
 }
 
-.expenses-table-wrap table th:first-child {
+.expenses-table-wrap table th:first-child, .users-table-wrap table th:first-child {
   border-radius: 10px 0 0 10px;
 }
 
-.expenses-table-wrap table th:nth-child(1) {
+.expenses-table-wrap table th:nth-child(1), .users-table-wrap table th:nth-child(1) {
   padding-right: 2rem;
 }
 
-.expenses-table-wrap table th:nth-child(2) {
+.expenses-table-wrap table th:nth-child(2), .users-table-wrap table th:nth-child(2) {
   text-align: left;
 }
 
-.expenses-table-wrap table th:last-child {
+.expenses-table-wrap table th:last-child, .users-table-wrap table th:last-child {
   border-radius: 0 10px 10px 0;
 }
 
-.expenses-table-wrap table tbody tr:nth-child(even) {
+.expenses-table-wrap table tbody tr:nth-child(even), .users-table-wrap table tbody tr:nth-child(even) {
   background: #fafafa;
 }
 
-.expenses-table-wrap table tbody td {
+.expenses-table-wrap table tbody td, .users-table-wrap table tbody td {
   padding: 0;
   text-align: center;
   height: 50px;
@@ -454,45 +459,45 @@ select:focus {
   color: #444;
 }
 
-.expenses-table-wrap table tbody td.expense-name {
+.expenses-table-wrap table tbody td.expense-name, .users-table-wrap table tbody td.expense-name {
   width: 250px;
   padding-right: 2rem;
 }
 
-.expenses-table-wrap table tbody td.expense-cat {
+.expenses-table-wrap table tbody td.expense-cat, .users-table-wrap table tbody td.expense-cat {
   width: 150px;
   text-align: left;
 }
 
-.expenses-table-wrap table i.fa-file-invoice-dollar {
+.expenses-table-wrap table i.fa-file-invoice-dollar, .users-table-wrap table i.fa-file-invoice-dollar {
   color: #ff6384;
 }
 
-.expenses-table-wrap table i.fa-basket-shopping {
+.expenses-table-wrap table i.fa-basket-shopping, .users-table-wrap table i.fa-basket-shopping {
   color: #36a2eb;
 }
 
-.expenses-table-wrap table i.fa-film {
+.expenses-table-wrap table i.fa-film, .users-table-wrap table i.fa-film {
   color: #ffc53a;
 }
 
-.expenses-table-wrap table i.fa-staff-aesculapius {
+.expenses-table-wrap table i.fa-staff-aesculapius, .users-table-wrap table i.fa-staff-aesculapius {
   color: #4bc0c0;
 }
 
-.expenses-table-wrap table i.fa-burger {
+.expenses-table-wrap table i.fa-burger, .users-table-wrap table i.fa-burger {
   color: #ff9f40;
 }
 
-.expenses-table-wrap table i.fa-shirt {
+.expenses-table-wrap table i.fa-shirt, .users-table-wrap table i.fa-shirt {
   color: #9966ff;
 }
 
-.expenses-table-wrap table i.fa-bus {
+.expenses-table-wrap table i.fa-bus, .users-table-wrap table i.fa-bus {
   color: #5d61f7;
 }
 
-.expenses-table-wrap table i.fa-universal-access {
+.expenses-table-wrap table i.fa-universal-access, .users-table-wrap table i.fa-universal-access {
   color: #afafaf;
 }
 
@@ -503,6 +508,7 @@ select:focus {
   border-radius: 10px;
   padding: 2rem;
   width: 600px;
+  height: 380px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -511,6 +517,7 @@ select:focus {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-bottom: 2rem;
+  justify-content: space-between;
 }
 
 .profile-wrap form {
@@ -521,7 +528,7 @@ select:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding-bottom: 2rem;
+  /* padding-bottom: 2rem; */
 }
 
 .profile-wrap form #input-names {
@@ -556,6 +563,10 @@ select:focus {
   border-bottom: 1px solid #9e9e9e;
 }
 
+.profile-wrap form .input-field:nth-child(5) {
+  margin-bottom: .5rem;
+}
+
 .profile-wrap .change-pass-btn {
   width: -webkit-fit-content !important;
   width: -moz-fit-content !important;
@@ -584,6 +595,35 @@ select:focus {
 
 .report-card #top10-bar {
   width: 850px !important;
+}
+
+#admin-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 15rem;
+}
+
+#admin-panel .section-header {
+  font-size: 45px;
+  color: #020202;
+}
+
+.users-table-wrap {
+  width: 80%;
+  height: 500px;
+}
+
+.users-table-wrap th {
+  text-align: center !important;
+  padding-right: 0 !important;
 }
 
 * {
@@ -731,7 +771,7 @@ body {
   margin-bottom: 3rem;
 }
 
-#add-wrap {
+#add-wrap, #edit-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -745,29 +785,29 @@ body {
   width: 100%;
 }
 
-#add-wrap .input-card {
+#add-wrap .input-card, #edit-wrap .input-card {
   margin-right: 20rem;
   padding: 2.5rem 3.5rem;
 }
 
-#add-wrap input {
+#add-wrap input, #edit-wrap input {
   margin: 0;
 }
 
-#add-wrap input[type="submit"] {
+#add-wrap input[type="submit"], #edit-wrap input[type="submit"] {
   margin-bottom: 1rem;
 }
 
-#add-wrap .error {
+#add-wrap .error, #edit-wrap .error {
   margin: 0;
 }
 
-#add-wrap .fa-list-ul {
+#add-wrap .fa-list-ul, #edit-wrap .fa-list-ul {
   margin-bottom: .3rem;
   margin-right: .4rem;
 }
 
-#add-wrap i {
+#add-wrap i, #edit-wrap i {
   width: 18px;
 }
 
@@ -909,7 +949,6 @@ body {
 #history-section .section-header #search-form {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   -webkit-box-align: center;
@@ -1084,6 +1123,10 @@ body {
 #delete-section .input-card h2 {
   font-size: 28px;
   margin-bottom: 2rem;
+}
+
+#edit-wrap input {
+  padding-left: 1rem;
 }
 
 @media only screen and (max-width: 1366px) {

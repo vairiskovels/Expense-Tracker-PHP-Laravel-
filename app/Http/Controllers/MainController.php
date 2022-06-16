@@ -177,7 +177,12 @@ class MainController extends Controller
         }
         else if ($search == 4){
             if ($request->searchPrice != null) {
-                $expenses->where('expenses.price', '>=',$request->searchPrice)->orderByRaw('expenses.date DESC, expenses.price DESC');
+                if ($request->chbx == '1') {
+                    $expenses->where('expenses.price', '<=',$request->searchPrice)->orderByRaw('expenses.date DESC, expenses.price DESC');
+                }
+                else {
+                    $expenses->where('expenses.price', '>=',$request->searchPrice)->orderByRaw('expenses.date DESC, expenses.price DESC');
+                }
             }
         }
 

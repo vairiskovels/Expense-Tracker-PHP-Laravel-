@@ -987,6 +987,26 @@ body {
           box-shadow: 5px 5px 20px 0px rgba(119, 119, 119, 0.5);
 }
 
+#history-section #price-search {
+  position: absolute;
+  transform: translateY(-12px);
+}
+
+#history-section .search-chbx {
+  position: relative;
+  top: 0;
+  right: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1rem !important;
+  height: 1rem !important;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  /* margin-left: 7rem;
+  margin-top: .75rem; */
+  transform: translateX(115px);
+}
+
 #profile-section {
   -webkit-transform: translateX(-100px);
           transform: translateX(-100px);

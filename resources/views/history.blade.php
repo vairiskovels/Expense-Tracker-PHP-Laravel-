@@ -22,7 +22,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="input-field">
+                <div class="input-field" id="inp-f-s">
                     <input type="text" class="show search-input" disabled>
                     <input type="text" name="searchName" id="name-search" placeholder="Name" class="hide search-input">
                     <select name="searchCategory" id="select-search" class="hide search-input">
@@ -33,6 +33,7 @@
                     </select>
                     <input type="date" name="searchDate" id="date-search" class="hide search-input" placeholder="Date">
                     <input type="text" name="searchPrice" id="price-search" class="hide search-input" placeholder="Price (€)">
+                    <input type="checkbox" name="chbx" id="chbx" class="hide search-chbx" value="1">
                 </div>
                 <input type="submit" value="Search" class="btn btn-primary">
             </form>
@@ -80,6 +81,7 @@
         const searchSelect = document.getElementById("search-select");
         let option2 = searchSelect.addEventListener('change', changeSearchField);
         const searchInputs = document.getElementsByClassName("search-input");
+        const chbx = document.getElementById("chbx");
 
         function changeSearchField() {
             const v = searchSelect.value;
@@ -89,6 +91,13 @@
                 if ($i != (v)) {
                     searchInputs[$i].classList.replace("show" , "hide");
                 }
+            }
+
+            if (v == 4) {
+                chbx.classList.replace("hide" , "show");
+            }
+            else {
+                chbx.classList.replace("show" , "hide");
             }
         }
 
